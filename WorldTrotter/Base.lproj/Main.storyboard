@@ -100,16 +100,7 @@
         <!--Item-->
         <scene sceneID="yIm-19-2ln">
             <objects>
-                <viewController id="mv1-VK-T75" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MQx-XE-NP2"/>
-                        <viewControllerLayoutGuide type="bottom" id="xlx-O8-FTh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gPe-OZ-z8N" customClass="MKWeb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                <viewController id="mv1-VK-T75" customClass="WebViewController" customModule="WorldTrotter" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="dhy-IO-Psj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hDf-Kw-pI7" userLabel="First Responder" sceneMemberID="firstResponder"/>

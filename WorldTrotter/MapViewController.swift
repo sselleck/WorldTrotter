@@ -1,3 +1,4 @@
+
 //
 //  MapViewController.swift
 //  WorldTrotter
@@ -9,16 +10,19 @@
 import UIKit
 import MapKit
 
-
-class MapViewController: UIViewController
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
 {
     var mapView: MKMapView!
-    //var locationManager: CLLocationManager!
+    var locationManager = CLLocationManager()
+    
     override func loadView()
     {
-        //create a map view
         mapView = MKMapView()
+        mapView.delegate = self
         
+        locationManager = CLLocationManager()
+        //locationManager.delegate = self
+       
         //set it as "the" view of this view controller
         view = mapView
         
@@ -28,11 +32,10 @@ class MapViewController: UIViewController
         //next line - Before auto layout autoresizing masks was used to allow views
         //to scale for different-sized screens at runtime.  It's turned off to keep from
         //conflicting with explicit contraints
+        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        // Don't need the self here but does not hurt.  self.view.addSubview(segmentedControl)
         view.addSubview(segmentedControl)
         
-        //these are NSLayoutConstraints
         //The topConstraint - the topAnchor of the segmentedControl is constrained to the 
         //bottomAnchor of the topLayoutGuide +8
         let topConstraint = segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8)
@@ -46,7 +49,9 @@ class MapViewController: UIViewController
         topConstraint.isActive=true
         leadingContraint.isActive=true
         trailingConstraint.isActive=true
-
+        
+        //locationManager.requestAlwaysAuthorization()
+        initalizeLocButton(segmentedControl)
     }
     
     //Function will list options to see the map in different views
@@ -64,51 +69,58 @@ class MapViewController: UIViewController
         }
     }
     
-    override func viewDidLoad()
-    {
+    func initalizeLocButton(_ anyView: UIView!){
+        let locationButton = UIButton.init(type: .system)
+        locationButton.setTitle("My Location", for: .normal)
+        locationButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        locationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(locationButton)
+        
+        let topButtonConstraint = locationButton.topAnchor.constraint(equalTo: anyView.bottomAnchor, constant: 8)
+        let leadingButtonConstraint = locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailingButtonConstraint = locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
+        topButtonConstraint.isActive = true
+        leadingButtonConstraint.isActive = true
+        trailingButtonConstraint.isActive = true
+        
+        locationButton.addTarget(self, action: #selector(MapViewController.showLocButton(sender:)), for: .touchUpInside)
+    }
+    
+    func showLocButton(sender: UIButton!) {
+        locationManager.requestAlwaysAuthorization()    // ask for authorization from user
+        locationManager.requestWhenInUseAuthorization()//use the location only when the app is in use and not when it is in the background
+        mapView.showsUserLocation = true //show the blue dot
+    }
+
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+        if userLocation  { //if the users location isnt found or if the button has been pushed once
+            locationManager.startUpdatingLocation() //turn on the location manager to look for location
+            let zoomedInCurrentLocation = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 500, 500)//creating a region that will zoom into the map
+            mapView.setRegion(zoomedInCurrentLocation, animated: true) //Set the map to the region and will use the zooming animation to true to get that.
+        }
+        else{
+            var region = mapView.region
+            var span = MKCoordinateSpan()
+            span.latitudeDelta = region.span.latitudeDelta*2
+            span.longitudeDelta = region.span.longitudeDelta*2
+            region.span = span; mapView.setRegion(region, animated: true);
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Errors:", error.localizedDescription) //print out an error to the debug if a problem arises.
+    }
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
         print("Map view")
     }
     
-     /*override func viewWillAppear(_ animated: Bool) {
+     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
         print("Map window view")
-    }*/
-    
-    //Silver Challenge Chp. 5, will change the map background color to the time of day.
-    override func viewWillAppear(_ animated: Bool) {
-        //colors for each the evening and morning time
-        let darkColor = UIColor.init(red:0.784,  green:0.784,  blue:0.788, alpha:1)
-        let lightColor = UIColor.init(red:0.961,  green:0.957,  blue:0.945, alpha:1)
-        
-        //a check to determine what time it is and then show the correct color
-        if isEvening(hourToCheck: getTheHour()) {
-            view.backgroundColor = darkColor
-        } else {
-            view.backgroundColor = lightColor
-        }
-        
-    }
-    
-    //function that find the time of the day that it currently is
-    func getTheHour() -> Int {
-        let date = Date()
-        let calendar = NSCalendar.currentCalendar()
-        let time = calendar.component(.Hour, from: date)
-        let currentTime = time!.hour
-        return currentTime
-    }
-    
-    //function that checks if the time is between what hours and whether or not to send true or false
-    func isEvening(hourToCheck: Int) -> Bool {
-        switch hourToCheck {
-        case 0...6:
-            return true
-        case 7...18:
-            return false
-        case 19...23:
-            return true
-        default: return false
-        }
     }
 }

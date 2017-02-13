@@ -16,8 +16,7 @@
 		51C4C0361E3D782B00AAD2BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51C4C0341E3D782B00AAD2BA /* LaunchScreen.storyboard */; };
 		51C4C0411E3D782B00AAD2BA /* WorldTrotterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4C0401E3D782B00AAD2BA /* WorldTrotterTests.swift */; };
 		51C4C04C1E3D782B00AAD2BA /* WorldTrotterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C4C04B1E3D782B00AAD2BA /* WorldTrotterUITests.swift */; };
-		E8680DF41E4A6B9F00AB2C75 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8680DF31E4A6B9F00AB2C75 /* WebKit.framework */; };
-		E89C770D1E4A63C2007D6B68 /* MKWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89C770C1E4A63C2007D6B68 /* MKWeb.swift */; };
+		E811FBD91E4BAFAE00595EB8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E811FBD81E4BAFAE00595EB8 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +52,8 @@
 		51C4C0471E3D782B00AAD2BA /* WorldTrotterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorldTrotterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C4C04B1E3D782B00AAD2BA /* WorldTrotterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTrotterUITests.swift; sourceTree = "<group>"; };
 		51C4C04D1E3D782B00AAD2BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E811FBD81E4BAFAE00595EB8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		E8680DF31E4A6B9F00AB2C75 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		E89C770C1E4A63C2007D6B68 /* MKWeb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKWeb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +61,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8680DF41E4A6B9F00AB2C75 /* WebKit.framework in Frameworks */,
 				511DEA491E465BCA00B091E6 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				511CDBFB1E3E9E20009CAAC5 /* ConversionViewController.swift */,
-				E89C770C1E4A63C2007D6B68 /* MKWeb.swift */,
+				E811FBD81E4BAFAE00595EB8 /* WebViewController.swift */,
 				51C4C02B1E3D782B00AAD2BA /* AppDelegate.swift */,
 				51C4C02F1E3D782B00AAD2BA /* Main.storyboard */,
 				51C4C0321E3D782B00AAD2BA /* Assets.xcassets */,
@@ -281,9 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E89C770D1E4A63C2007D6B68 /* MKWeb.swift in Sources */,
 				511CDBFC1E3E9E20009CAAC5 /* ConversionViewController.swift in Sources */,
 				511DEA4B1E46766800B091E6 /* MapViewController.swift in Sources */,
+				E811FBD91E4BAFAE00595EB8 /* WebViewController.swift in Sources */,
 				51C4C02C1E3D782B00AAD2BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

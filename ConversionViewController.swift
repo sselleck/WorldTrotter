@@ -97,16 +97,28 @@ class ConversionViewController: UIViewController, UITextFieldDelegate
         textField.resignFirstResponder()
     }
     
-    override func viewDidLoad()
-    {
+    //Silver Challenge Chp. 5, will change the map background color to the time of day.
+    override func viewDidLoad() {
         super.viewDidLoad()
-        print("Convert Temp")
-        updateCelsiusLabel()
+        
+        let calendar  = Calendar.current
+        let timeComponents = calendar.component(.hour, from: Date())
+        let hour = timeComponents
+        
+        let colors = ["Morning": UIColor.init(red:0.961,  green:0.957,  blue:0.945, alpha:1),
+                      "Afternoon" :UIColor.init(red:0.884,  green:0.884,  blue:0.888, alpha:1),
+                      "Evening" : UIColor.init(red:0.784,  green:0.784,  blue:0.788, alpha:1)]
+        switch hour {
+        case  8...12:
+            view.backgroundColor = colors["Morning"]
+        case 12...18:
+            view.backgroundColor = colors["Afternoon"]
+        case 19...23:
+            fallthrough
+        case 0...7:
+            view.backgroundColor = colors ["Evening"]
+        default:
+            view.backgroundColor = UIColor.white
+        }
     }
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewDidLoad()
-
-    }
-
 }
